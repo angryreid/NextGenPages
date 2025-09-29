@@ -4,17 +4,20 @@ import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { SiteConfiguration, siteConfigSchema } from "@shared/schema";
+import { useConfiguration } from "@/contexts/ConfigurationContext";
 import ConfigEditor from "./ConfigEditor";
 import SitePreview from "./SitePreview";
 import { ThemeToggle } from "./ThemeToggle";
-import { FileText, Eye, Settings, Download, Upload } from "lucide-react";
+import { FileText, Eye, Settings, Download, Upload, ExternalLink } from "lucide-react";
+import { useLocation } from "wouter";
 
 export default function Dashboard() {
-  const [currentConfig, setCurrentConfig] = useState<SiteConfiguration | null>(null);
+  const { config: currentConfig, setConfig, setIsBuilderMode } = useConfiguration();
   const [activeTab, setActiveTab] = useState("editor");
+  const [, setLocation] = useLocation();
 
   const handleConfigChange = (config: SiteConfiguration) => {
-    setCurrentConfig(config);
+    setConfig(config);
     console.log("Configuration updated in dashboard:", config); // TODO: remove mock functionality
   };
 
@@ -52,7 +55,7 @@ export default function Dashboard() {
             const config = JSON.parse(e.target?.result as string);
             const result = siteConfigSchema.safeParse(config);
             if (result.success) {
-              setCurrentConfig(result.data);
+              setConfig(result.data);
               console.log("Configuration imported successfully"); // TODO: remove mock functionality
             } else {
               console.error("Invalid configuration file"); // TODO: remove mock functionality
@@ -127,13 +130,29 @@ export default function Dashboard() {
             </TabsList>
             
             {currentConfig && (
-              <div className="flex items-center gap-2">
-                <Badge variant="secondary">
-                  {currentConfig.pages.length} page{currentConfig.pages.length !== 1 ? 's' : ''}
-                </Badge>
-                <Badge variant="outline">
-                  {currentConfig.pages.reduce((acc, page) => acc + page.components.length, 0)} components
-                </Badge>
+              <div className="flex items-center gap-4">
+                <div className="flex items-center gap-2">
+                  <Badge variant="secondary">
+                    {currentConfig.pages.length} page{currentConfig.pages.length !== 1 ? 's' : ''}
+                  </Badge>
+                  <Badge variant="outline">
+                    {currentConfig.pages.reduce((acc, page) => acc + page.components.length, 0)} components
+                  </Badge>
+                </div>
+                <div className="flex items-center gap-2">
+                  <Button
+                    variant="outline"
+                    size="sm"
+                    onClick={() => {
+                      setIsBuilderMode(false);
+                      setLocation(currentConfig.pages[0]?.path || '/');
+                    }}
+                    data-testid="button-view-site"
+                  >
+                    <ExternalLink className="w-4 h-4 mr-2" />
+                    View Site
+                  </Button>
+                </div>
               </div>
             )}
           </div>
