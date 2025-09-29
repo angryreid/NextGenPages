@@ -1,0 +1,91 @@
+{
+  "id": "dynamic-ssg-site",
+  "name": "Dynamic SSG Site",
+  "description": "A statically generated site from JSON configuration",
+  "theme": {
+    "primaryColor": "#3b82f6",
+    "fontFamily": "Inter"
+  },
+  "pages": [
+    {
+      "id": "home",
+      "path": "/",
+      "title": "Home Page",
+      "description": "Welcome to our dynamic site",
+      "layout": "default",
+      "components": [
+        {
+          "type": "banner",
+          "id": "hero-banner",
+          "title": "Welcome to Our Site",
+          "subtitle": "Generated statically from JSON configuration",
+          "variant": "gradient"
+        },
+        {
+          "type": "text",
+          "id": "intro-text",
+          "content": "This page was generated at build time from JSON configuration. Each page becomes a static HTML file.",
+          "variant": "paragraph"
+        },
+        {
+          "type": "button",
+          "id": "cta-button",
+          "text": "Learn More",
+          "variant": "default",
+          "size": "lg"
+        }
+      ]
+    },
+    {
+      "id": "about",
+      "path": "/about",
+      "title": "About Us",
+      "description": "Learn more about our company",
+      "layout": "centered",
+      "components": [
+        {
+          "type": "text",
+          "id": "about-heading",
+          "content": "About Our Company",
+          "variant": "heading"
+        },
+        {
+          "type": "text",
+          "id": "about-content",
+          "content": "We are a forward-thinking company dedicated to building amazing static sites with JSON configuration.",
+          "variant": "paragraph"
+        }
+      ]
+    },
+    {
+      "id": "cms-dashboard",
+      "path": "/cms/dash",
+      "title": "CMS Dashboard",
+      "description": "Content management dashboard",
+      "layout": "wide",
+      "components": [
+        {
+          "type": "banner",
+          "id": "dashboard-banner",
+          "title": "CMS Dashboard",
+          "subtitle": "Manage your content effectively",
+          "variant": "default"
+        },
+        {
+          "type": "card",
+          "id": "stats-card",
+          "title": "Site Statistics",
+          "content": "This dashboard shows key metrics and allows content management.",
+          "variant": "default"
+        },
+        {
+          "type": "button",
+          "id": "manage-content-btn",
+          "text": "Manage Content",
+          "variant": "primary",
+          "size": "default"
+        }
+      ]
+    }
+  ]
+}
