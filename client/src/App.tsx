@@ -4,7 +4,10 @@ import { QueryClientProvider } from "@tanstack/react-query";
 import { Toaster } from "@/components/ui/toaster";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { ThemeProvider } from "@/components/ThemeProvider";
-import { ConfigurationProvider, useConfiguration } from "@/contexts/ConfigurationContext";
+import {
+  ConfigurationProvider,
+  useConfiguration,
+} from "@/contexts/ConfigurationContext";
 import Home from "@/pages/Home";
 import DynamicPage from "@/components/DynamicPage";
 import NotFound from "@/pages/not-found";
@@ -28,12 +31,12 @@ function DynamicRouter() {
     <Switch>
       {/* Builder route */}
       <Route path="/builder" component={Home} />
-      
+
       {/* Dynamic routes from configuration */}
       {config.pages.map((page) => (
         <Route key={page.id} path={page.path} component={DynamicPage} />
       ))}
-      
+
       {/* Fallback to 404 */}
       <Route component={NotFound} />
     </Switch>
@@ -47,39 +50,70 @@ function getDefaultConfig() {
     description: "A site built with JSON configuration",
     theme: {
       primaryColor: "#3b82f6",
-      fontFamily: "Inter"
+      fontFamily: "Inter",
     },
     pages: [
       {
         id: "home",
         path: "/",
-        title: "Home Page", 
+        title: "Home Page",
         description: "Welcome to my dynamic site",
-        layout: "default" as const,
         components: [
           {
-            type: "banner" as const,
+            type: "banner",
             id: "hero-banner",
-            title: "Welcome to My Site",
+            title: "Welcome to My Site sdfdsdf",
             subtitle: "Built with dynamic configuration",
-            variant: "gradient" as const
+            variant: "gradient",
           },
           {
-            type: "text" as const,
+            type: "text",
             id: "intro-text",
-            content: "This page was generated from JSON configuration. You can edit the configuration to change the content, layout, and components.",
-            variant: "paragraph" as const
+            content:
+              "This page was generated from JSON configuration. You can edit the configuration to change the content, layout, and components.",
+            variant: "paragraph",
           },
           {
-            type: "button" as const,
+            type: "button",
             id: "cta-button",
-            text: "Get Started",
-            variant: "default" as const,
-            size: "lg" as const
-          }
-        ]
-      }
-    ]
+            text: "Get Starteddfdfdf",
+            variant: "default",
+            size: "lg",
+          },
+        ],
+        layout: "default",
+      },
+      {
+        id: "cms",
+        path: "/cms/dash",
+        title: "CMS Dash Page",
+        description: "Welcome to my dynamic site",
+        components: [
+          {
+            type: "banner",
+            id: "hero-banner",
+            title: "Welcome to CMS",
+            subtitle: "Built with dynamic configuration",
+            variant: "gradient",
+          },
+          {
+            type: "text",
+            id: "intro-text",
+            content:
+              "This page was generated from JSON configuration. You can edit the configuration to change the content, layout, and components.",
+            variant: "paragraph",
+          },
+          {
+            type: "button",
+            id: "cta-button",
+            text: "Get CMS",
+            variant: "default",
+            size: "lg",
+          },
+        ],
+        layout: "default",
+      },
+    ],
   };
 }
 
